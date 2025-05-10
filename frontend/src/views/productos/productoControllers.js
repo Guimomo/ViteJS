@@ -8,7 +8,12 @@ export const productoController = async () => {
     const responseCategorias = await fetch("http://localhost:3000/api/categorias");
     const { data: categorias } = await responseCategorias.json();
 
-            
+    const form = document.querySelector('form');
+    const nombre = document.getElementById('nombre');
+    const descripcion = document.getElementById('descripcion');
+    const precio = document.getElementById('precio');
+    const btnGuardar = document.querySelector('.btn-sumit');
+
     // const tbody = document.getElementById('categorias-list');
 
     // console.log(data);
@@ -55,12 +60,128 @@ export const productoController = async () => {
         btnEditar.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
         btnEditar.addEventListener('click', () => {
 
+            btnGuardar.getAttribute('disabled', true);
+
+            // btnEditar.setAttribute('disabled', true);
+
+            document.querySelectorAll('.btn-primary').forEach((btn) => {
+                btn.setAttribute('disabled', true);
+            });
+
+            document.querySelectorAll('.btn-danger').forEach((btn) => {
+                btn.setAttribute('disabled', true);
+            });
+
+            const editWindow = document.createElement('div');
+            editWindow.classList.add('ventana-editar');
+            
+            const titulo = document.createElement('h2');
+            titulo.textContent = 'Editar Producto';
+            editWindow.appendChild(titulo);
+
+            const formEditar = document.createElement('form');
+            formEditar.classList.add('form-editar');
+
+            const inputNombre = document.createElement('input');
+            inputNombre.type = 'text';
+            inputNombre.placeholder = Producto.nombre;
+            inputNombre.value = Producto.nombre;
+
+            const inputDescripcion = document.createElement('input');
+            inputDescripcion.type = 'text';
+            inputDescripcion.placeholder = Producto.descripcion;
+            inputDescripcion.value = Producto.descripcion;
+
+            const inputPrecio = document.createElement('input');
+            inputPrecio.type = 'number';
+            inputPrecio.placeholder = Producto.precio;
+            inputPrecio.value = Producto.precio;
+
+            const inputCategoria = document.createElement('select');
+            inputCategoria.id = 'categoria_id';
+            categorias.forEach((categoria) => {
+                const opcion = document.createElement('option');
+                opcion.value = categoria.id;
+                opcion.textContent = categoria.nombre;
+                inputCategoria.appendChild(opcion);
+            });
+            inputCategoria.value = Producto.categoria_id;
+
+            const btnActualizar = document.createElement('button');
+            btnActualizar.textContent = 'Actualizar';
+            btnActualizar.classList.add('btn', 'btn-success', 'btn-sm');
+            btnActualizar.addEventListener('click', async (evento) => {
+
+                evento.preventDefault();
+
+
+
+                const data = {
+                    nombre: inputNombre.value,
+                    descripcion: inputDescripcion.value,
+                    precio: parseFloat(inputPrecio.value),
+                    categoria_id: inputCategoria.value
+                };
+
+                console.log('Datos enviados al backend:', data);
+                const response = await fetch(`http://localhost:3000/api/productos/${Producto.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                form.reset();
+                editWindow.remove();
+                //location.reload();
+            });
+
+
+            const btnCancelar = document.createElement('button');
+            btnCancelar.textContent = 'Cancelar';
+            btnCancelar.classList.add('btn', 'btn-danger', 'btn-sm');
+            btnCancelar.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                editWindow.remove();
+                 
+                btnGuardar.removeAttribute('disabled');
+
+                document.querySelectorAll('.btn-primary').forEach((btn) => {
+                    btn.removeAttribute('disabled');
+                });
+
+                document.querySelectorAll('.btn-danger').forEach((btn) =>{
+                    btn.removeAttribute('disabled');
+                });
+            });
+
+            const btnDiv = document.createElement('div');
+            btnDiv.classList.add('btn-div');
+            btnDiv.append(btnActualizar, btnCancelar);
+
+            formEditar.append(inputNombre, inputDescripcion, inputPrecio, inputCategoria, btnDiv);
+
+            editWindow.appendChild(formEditar);
+
+            // Agregar el div al DOM
+            document.body.appendChild(editWindow);
+
         });
 
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
         btnEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
         btnEliminar.addEventListener('click', async () => {
+
+            const confirmacion = confirm (`¿Deseas Eliminar el elemento ${Producto.nombre}?`);
+            if (confirmacion) {
+                fetch(`http://localhost:3000/api/productos/${Producto.id}`, {
+                    method: 'DELETE',
+                });
+
+            }
 
         });
 
@@ -91,6 +212,29 @@ export const productoController = async () => {
      */
     const guardar = (e) => {
 
+        e.preventDefault();
+        
+        const data = {
+            nombre: nombre.value,
+            descripcion: descripcion.value,
+            precio: parseFloat(precio.value),
+            categoria_id: selectCategoria.value
+        }
+            
+        console.log("Valor de nombre:", nombre.value);
+        console.log("Valor de descripcion:", descripcion.value);
+            
+        fetch("http://localhost:3000/api/productos", {
+            
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then((response) => response.json())
+        .then((json) => console.log(json));
+    
+        form.reset(); // Limpiar el formulario
         
     }
 

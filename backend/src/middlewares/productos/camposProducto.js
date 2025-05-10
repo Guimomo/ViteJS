@@ -18,7 +18,8 @@ export const camposProducto = (req, res, next) => {
     // Capturamos el valor del campo del body de la petición
     const value = req.body[name];
     // Validar si el campo es requerido y está vacío
-    if (required && (!value || value.trim() === "")) {
+    //if (required && (!value || value.trim() === "")) { comentado para evitar el error de validación
+    if (required && (!value || (typeof value === 'string' && value.trim() === ''))) {
       errors.push({
         campo: name,
         message: `El campo ${name} es obligatorio y no puede estar vacío.`,
@@ -44,22 +45,33 @@ export const camposProducto = (req, res, next) => {
       // Si el campo no cumple con el tamaño máximo, continuamos al siguiente campo, evitando el resto de validaciones
       continue;
     }
-    // Validar que el campo sea de timpo numérico
+    // Validar que el campo sea de tipo numérico (permitir decimales)
     if (type === "number" && value) {
-      // Convertimos el valor a un número entero
-      const numero = Number(value);    
-      // Validamos si el valor es un número
-      if (!Number.isInteger(numero)) {
-        // Si el valor no es un número entero, agregamos un error
+      const numero = Number(value);
+      if (isNaN(numero)) {
         errors.push({
           campo: name,
-          message: `El campo ${name} debe ser un número entero.`,
+          message: `El campo ${name} debe ser un número válido.`,
         });
-        // Si el campo no es un número entero, continuamos al siguiente campo, evitando el resto de validaciones
         continue;
-       }
+      }
     }
+    //     if (type === "number" && value) {
+    //     // Convertimos el valor a un número entero
+    //     const numero = Number(value);    
+    //     // Validamos si el valor es un número
+    //     if (!Number.isInteger(numero)) {
+    //       // Si el valor no es un número entero, agregamos un error
+    //       errors.push({
+    //         campo: name,
+    //         message: `El campo ${name} debe ser un número entero.`,
+    //       });
+    //       // Si el campo no es un número entero, continuamos al siguiente campo, evitando el resto de validaciones
+    //       continue;
+    //      }
+    //   }
   }
+
   // Si hay errores, devolver una respuesta con los errores
   if (errors.length > 0) {
     // Retornamos y Llamamos el provider para centralizar los mensajes de respuesta
