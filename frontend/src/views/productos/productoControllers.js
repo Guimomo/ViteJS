@@ -60,7 +60,7 @@ export const productoController = async () => {
         btnEditar.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
         btnEditar.addEventListener('click', () => {
 
-            btnGuardar.getAttribute('disabled', true);
+            btnGuardar.setAttribute('disabled', true);
 
             // btnEditar.setAttribute('disabled', true);
 
@@ -134,6 +134,15 @@ export const productoController = async () => {
 
                 form.reset();
                 editWindow.remove();
+
+                // Devolver los botones a su estado original
+                btnGuardar.removeAttribute('disabled');
+                document.querySelectorAll('.btn-primary').forEach((btn) => {
+                    btn.removeAttribute('disabled');
+                });
+                document.querySelectorAll('.btn-danger').forEach((btn) =>{
+                    btn.removeAttribute('disabled');
+                });
                 //location.reload();
             });
 
