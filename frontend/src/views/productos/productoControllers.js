@@ -8,25 +8,6 @@ export const productoController = async () => {
     const responseCategorias = await fetch("http://localhost:3000/api/categorias");
     const { data: categorias } = await responseCategorias.json();
 
-    const form = document.querySelector('form');
-    const nombre = document.getElementById('nombre');
-    const descripcion = document.getElementById('descripcion');
-    const precio = document.getElementById('precio');
-    const btnGuardar = document.querySelector('.btn-sumit');
-
-    // const tbody = document.getElementById('categorias-list');
-
-    // console.log(data);
-
-    const selectCategoria = document.getElementById('categoria_id');
-    categorias.forEach((categoria)=>{
-
-        const opcion = document.createElement('option');
-        opcion.value = categoria.id;
-        opcion.textContent = categoria.nombre;
-        selectCategoria.appendChild(opcion);
-    });
-
     /**
      * Función para crear una fila en la tabla de productos
      * @param {Object} Producto - Objeto que representa un producto
@@ -60,7 +41,7 @@ export const productoController = async () => {
         btnEditar.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
         btnEditar.addEventListener('click', () => {
 
-            btnGuardar.setAttribute('disabled', true);
+            //btnGuardar.setAttribute('disabled', true);
 
             // btnEditar.setAttribute('disabled', true);
 
@@ -132,11 +113,11 @@ export const productoController = async () => {
                     }
                 });
 
-                form.reset();
+                //form.reset();
                 editWindow.remove();
 
                 // Devolver los botones a su estado original
-                btnGuardar.removeAttribute('disabled');
+                //btnGuardar.removeAttribute('disabled');
                 document.querySelectorAll('.btn-primary').forEach((btn) => {
                     btn.removeAttribute('disabled');
                 });
@@ -155,7 +136,7 @@ export const productoController = async () => {
 
                 editWindow.remove();
                  
-                btnGuardar.removeAttribute('disabled');
+                //btnGuardar.removeAttribute('disabled');
 
                 document.querySelectorAll('.btn-primary').forEach((btn) => {
                     btn.removeAttribute('disabled');
@@ -215,37 +196,4 @@ export const productoController = async () => {
 
     cargarTabla();
 
-    /**
-     * Función para guardar un nuevo producto
-     * @param {*} e - Evento de envío del formulario
-     */
-    const guardar = (e) => {
-
-        e.preventDefault();
-        
-        const data = {
-            nombre: nombre.value,
-            descripcion: descripcion.value,
-            precio: parseFloat(precio.value),
-            categoria_id: selectCategoria.value
-        }
-            
-        console.log("Valor de nombre:", nombre.value);
-        console.log("Valor de descripcion:", descripcion.value);
-            
-        fetch("http://localhost:3000/api/productos", {
-            
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-            },
-        }).then((response) => response.json())
-        .then((json) => console.log(json));
-    
-        form.reset(); // Limpiar el formulario
-        
-    }
-
-    form.addEventListener('submit', guardar)
 }

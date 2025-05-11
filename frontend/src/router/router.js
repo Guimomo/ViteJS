@@ -2,15 +2,11 @@ import { cargarView } from "../helpers/loadView";
 import { productoController } from "../views/productos/productoControllers.js";
 import { categoriaController } from "../views/categorias/categoriaControllers.js";
 import { homeController } from "../views/inicio/homeControllers.js";
+import { crearProductosController } from "../views/productos/crearProductoController.js";
+import { crearCategoriaController } from "../views/categorias/crearCategoriaControllers.js";
+import { editarCategoriaController } from "../views/categorias/editarCategoriaControllers.js";
 
 const routes = {
-
-    // home: {
-    //     "template": "home/index.html",
-    //     controlador: () => {
-    //         console.log("controlador home");
-    //     }
-    // },
     
     home: {
         "template": "inicio/index.html",
@@ -20,10 +16,23 @@ const routes = {
         "template": "productos/index.html",
         controlador: productoController
     },
+    crearProductos: {
+        "template": "productos/crear.html",
+        controlador: crearProductosController
+    },
     categorias: {
         "template": "categorias/index.html",
         controlador: categoriaController
     },
+    crearCategorias: {
+        "template": "categorias/crear.html",
+        controlador: crearCategoriaController
+    },
+    "editarCategoria/:id": {
+        "template": "categorias/editar.html",
+        controlador: editarCategoriaController
+    },
+
 
 };
 

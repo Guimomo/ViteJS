@@ -18,10 +18,48 @@ linkCategorias.classList.add('item-link')
 linkCategorias.textContent = 'Categorias';
 linkCategorias.setAttribute('href', '#categorias');
 
+// const linkCategorias = document.createElement('div');
+// linkCategorias.classList.add('item-link')
+// linkCategorias.textContent = 'Categorias';
+
+// const crearCategoria = document.createElement('a')
+// crearCategoria.setAttribute('href', '#crearCategorias');
+// crearCategoria.textContent = 'Crear una categoria';
+
+// const verCategoria = document.createElement('a')
+// verCategoria.setAttribute('href', '#categorias');
+// verCategoria.textContent = 'ver categorias';
+
+// const opCategorias = document.createElement('div')
+// opCategorias.classList.add ('opciones_categoria')
+
+// opCategorias.append( crearCategoria, verCategoria )
+
+// linkCategorias.appendChild( opCategorias )
+
 const linkProductos = document.createElement('a');
 linkProductos.classList.add('item-link')
 linkProductos.textContent = 'Productos';
 linkProductos.setAttribute('href', '#productos');
+
+// const linkProductos = document.createElement('div');
+// linkProductos.classList.add('item-link')
+// linkProductos.textContent = 'Productos';
+
+// const crearProducto = document.createElement('a')
+// crearProducto.setAttribute('href', '#crearProductos');
+// crearProducto.textContent = 'Crear un producto';
+
+// const verProducto = document.createElement('a')
+// verProducto.setAttribute('href', '#productos');
+// verProducto.textContent = 'ver productos';
+
+// const opProductos = document.createElement('div')
+// opProductos.classList.add ('opciones_producto')
+
+// opProductos.append( crearProducto, verProducto )
+
+// linkProductos.appendChild( opProductos )
 
 itemsHeader_content.append(linkCategorias, linkProductos);
 
@@ -39,88 +77,6 @@ logo.appendChild(logo_img);
 
 header.append(logo, itemsHeader_content);
 
-
-//---------------------------------------------------------- #3 Listado de Categorias
-
-// const cargar_tabla = async () => {
-
-//     try {
-//         const categoriasResponse = await categoriaController();
-//         const categorias = categoriasResponse.data;
-
-//         // Validar que `categorias` sea un arreglo
-//         if (!Array.isArray(categorias)) {
-//             console.error("La propiedad `data` no es un arreglo:", categorias);
-//             return;
-//         }
-
-//         const tbody = document.querySelector('#categorias-list');
-//         tbody.innerHTML = ''; // Limpia el contenido actual de la tabla
-
-//         categorias.forEach((categoria) => {
-//             crearFila(categoria); // Crea una fila para cada categoría
-//         });
-//     } catch (error) {
-//         console.error("Error al cargar la tabla:", error);
-//     }
-
-//     // const categoriasResponse = await categoriaController();
-//     // const categorias = categoriasResponse.data;
-
-//     // const tbody = document.querySelector('#categorias-list');
-//     // tbody.innerHTML = ''; // Limpia el contenido actual de la tabla
-
-//     // categorias.forEach((categoria) => {
-//     //     crearFila(categoria);
-//     // });
-
-// }
-
-// const crearFila = ({id, nombre, descripcion}) => {
-  
-//     // Obtiene una referencia a la tabla
-//     const tbody = tabla.querySelector('#categorias-list');
-  
-//     // Inserta una fila en la tabla
-//     const tr = document.createElement('tr');
-
-//     // // Celda nombre
-//     // const cellNombre = tr.insertCell(0);
-//     // const cellDescripcion = tr.insertCell(1);
-
-//     //crear celdas
-
-//     const cellNombre = document.createElement('td');
-//     const cellDescripcion = document.createElement('td');
-//     const cellAcciones = document.createElement('td');
-
-//     // Creamos los elementos de texto para cada celda
-//     cellNombre.textContent = nombre;
-//     cellDescripcion.textContent = descripcion;
-    
-//     // Creamos los elementos de botones para editar y eliminar
-//     const div = document.createElement('div');
-//     const botonEditar = document.createElement('button');
-//     const botonEliminar = document.createElement('button');
-
-//     // Asignamos los textos a los botones
-//     botonEditar.textContent = "Editar";
-//     botonEliminar.textContent = "Eliminar";
-
-//     botonEditar.setAttribute('data-id', id);
-//     botonEliminar.setAttribute('data-id', id);
-//     // Asignamos las clases a los botones y al div contenedor
-//     //div.classList.add("botonera");
-//     botonEditar.classList.add("btn", "btn--small", "editar");
-//     botonEliminar.classList.add("btn", "btn--small", "btn--danger", "eliminar");
-
-//     // Agregamos los botones al div contenedor
-//     cellAcciones.appendChild(botonEditar,botonEliminar)
-
-//     tr.append(cellNombre, cellDescripcion, cellAcciones);
-
-//     tbody.appendChild(tr);
-// }
 
 window.addEventListener('hashchange', () => {
 

@@ -59,3 +59,15 @@ body {
     height: 100%;
     object-fit: contain;
 }
+
+/*------------------------------------------------------------*/
+
+.opciones_producto {
+
+}
+
+.opciones_producto a,
+.opciones_categoria a {
+
+    font-size: 12px;
+}
