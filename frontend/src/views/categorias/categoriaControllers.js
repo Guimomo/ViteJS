@@ -36,7 +36,7 @@ export const categoriaController = async () => {
         const btnEditar = document.createElement('a');
         btnEditar.textContent = 'Editar';
         btnEditar.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
-        btnEditar.setAttribute('href', '#editarCategoria');
+        btnEditar.setAttribute('href', `#editarCategoria/${categoria.id}`);
 
 
         // btnEditar.addEventListener ('click', () => {
