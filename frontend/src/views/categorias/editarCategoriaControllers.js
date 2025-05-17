@@ -20,5 +20,29 @@ export const editarCategoriaController = async (categoria) => {
 
     // nombre.value = datos.nombre;
 
+    const update = async (e) => {
+
+        e.preventDefault();
+
+        const data = {
+            nombre: nombre.value,
+            descripcion: nombre.value
+        };
+
+        console.log('Datos enviados al backend:', data);
+        const response = await fetch(`http://localhost:3000/api/categorias/${categoria.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+
+    }
+
+    form.addEventListener('submit', update);
     
 }
