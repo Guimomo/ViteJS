@@ -39,15 +39,17 @@ const routes = {
 export const router = async (app) => {
 
     const hash = location.hash.slice(1); //eliminar el # de la url
-    const {template, controlador} = matchRoute(hash); //comprobar si la ruta existe
+    const [rutas, params] = matchRoute(hash); //comprobar si la ruta existe //antes era {template, controlador} y funcionaba con {...routes[route], params}
+    console.log(params);
+    
     //console.log(match);
     //llamando la vista
-    await cargarView(app, template); //cargar la vista por defecto al cargar la pagina
+    await cargarView(app, rutas.template); //cargar la vista por defecto al cargar la pagina
     //ejecutar el controlador
     //?
 
     // Ejecutar el controlador
-    controlador(); // Ejecutar el controlador después de cargar la vista
+    rutas.controlador(params); // Ejecutar el controlador después de cargar la vista
 }
 
 const matchRoute = (hash) => { 
@@ -92,7 +94,7 @@ const matchRoute = (hash) => {
 
     if (matched === true) {
 
-        return { ...routes[route], params }; // Retornar la ruta y los params
+      return [routes[route], params]; // Retornar la ruta y los params // antes era {...routes[route], params}
     }
 
     console.log(params);
@@ -100,6 +102,7 @@ const matchRoute = (hash) => {
     
 
     if (route === hash) {
+
       return routes[route];
     }
   }
@@ -121,5 +124,6 @@ const matchRoute = (hash) => {
     //         return routes[route]; //retorna la ruta que coincide con el hash
     //     }
     // }
-    
+  
+    return [null, null]
 }
