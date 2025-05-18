@@ -41,7 +41,7 @@ export const crearProductosController = async () => {
         const data = {
             nombre: nombre.value,
             descripcion: descripcion.value,
-            precio: parseFloat(precio.value),
+            precio: precio.value,
             categoria_id: selectCategoria.value
         }
             

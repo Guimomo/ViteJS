@@ -5,6 +5,7 @@ import { homeController } from "../views/inicio/homeControllers.js";
 import { crearProductosController } from "../views/productos/crearProductoController.js";
 import { crearCategoriaController } from "../views/categorias/crearCategoriaControllers.js";
 import { editarCategoriaController } from "../views/categorias/editarCategoriaControllers.js";
+import { editarProductoController } from "../views/productos/editarProductoController.js";
 
 const routes = {
     
@@ -31,6 +32,10 @@ const routes = {
     "editarCategoria/:id": {
         "template": "categorias/editar.html",
         controlador: editarCategoriaController
+    },
+    "editarProducto/:id": {
+        "template": "productos/editar.html",
+        controlador: editarProductoController
     },
 
 

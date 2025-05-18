@@ -46,30 +46,30 @@ export const camposProducto = (req, res, next) => {
       continue;
     }
     // Validar que el campo sea de tipo numérico (permitir decimales)
-    if (type === "number" && value) {
-      const numero = Number(value);
-      if (isNaN(numero)) {
-        errors.push({
-          campo: name,
-          message: `El campo ${name} debe ser un número válido.`,
-        });
-        continue;
-      }
-    }
-    //     if (type === "number" && value) {
-    //     // Convertimos el valor a un número entero
-    //     const numero = Number(value);    
-    //     // Validamos si el valor es un número
-    //     if (!Number.isInteger(numero)) {
-    //       // Si el valor no es un número entero, agregamos un error
-    //       errors.push({
-    //         campo: name,
-    //         message: `El campo ${name} debe ser un número entero.`,
-    //       });
-    //       // Si el campo no es un número entero, continuamos al siguiente campo, evitando el resto de validaciones
-    //       continue;
-    //      }
+    // if (type === "number" && value) {
+    //   const numero = Number(value);
+    //   if (isNaN(numero)) {
+    //     errors.push({
+    //       campo: name,
+    //       message: `El campo ${name} debe ser un número válido.`,
+    //     });
+    //     continue;
     //   }
+    // }
+        if (type === "number" && value) {
+        // Convertimos el valor a un número entero
+        const numero = Number(value);    
+        // Validamos si el valor es un número
+        if (!Number.isInteger(numero)) {
+          // Si el valor no es un número entero, agregamos un error
+          errors.push({
+            campo: name,
+            message: `El campo ${name} debe ser un número entero.`,
+          });
+          // Si el campo no es un número entero, continuamos al siguiente campo, evitando el resto de validaciones
+          continue;
+         }
+      }
   }
 
   // Si hay errores, devolver una respuesta con los errores
