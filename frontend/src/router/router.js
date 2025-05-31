@@ -65,7 +65,7 @@ export const router = async (app) => {
     const [rutas, params] = matchRoute(hash); //comprobar si la ruta existe //antes era {template, controlador} y funcionaba con {...routes[route], params}
     console.log(rutas.private);
 
-    if (!rutas) {
+    if (rutas.private && !Autenticado()) {
       await cargarView(app, "inicio/index.html"); // Si no se encuentra la ruta, cargar una vista 404
       homeController(); // Llamar al controlador de la vista 404
       return;
