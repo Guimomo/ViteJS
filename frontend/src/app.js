@@ -1,6 +1,7 @@
 import "./css/main.css";
+import { Autenticado } from "./helpers/auth";
 import { router } from "./router/router";
-
+import Swal from "sweetalert2";
 
 const app = document.querySelector('#app');
 
@@ -34,6 +35,10 @@ linkRegistro.classList.add('item-link');
 linkRegistro.textContent = 'Registrarse';
 linkRegistro.setAttribute('href', '#registro');
 
+const buttonLogOut = document.createElement('button');
+buttonLogOut.classList.add('item-link');
+buttonLogOut.textContent = 'Cerrar Sesión';
+
 itemsHeader_content.append(linkCategorias, linkProductos, linkLogin, linkRegistro);
 
 //.......... #1.2 Creación de logo con enlace a la pagina principal
@@ -60,5 +65,30 @@ window.addEventListener('hashchange', () => {
 window.addEventListener('DOMContentLoaded', () => {
 
     router(app);
+
+    if (Autenticado()){
+
+        itemsHeader_content.append(linkCategorias, linkProductos, buttonLogOut);
+        linkLogin.remove();
+        linkRegistro.remove();
+
+        buttonLogOut.addEventListener('click', () => {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+
+            Swal.fire({
+                title: 'Sesión cerrada',
+                text: 'Has cerrado sesión correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+
+                window.location.hash = "#"; //Regresa a home
+                itemsHeader_content.append(linkCategorias, linkProductos, linkLogin, linkRegistro);
+                buttonLogOut.remove();
+
+            });
+        });
+    }
     // cargar_tabla();
 });

@@ -66,15 +66,10 @@ export const router = async (app) => {
     console.log(rutas.private);
 
     if (rutas.private && !Autenticado()) {
-      await cargarView(app, "inicio/index.html"); // Si no se encuentra la ruta, cargar una vista 404
-      homeController(); // Llamar al controlador de la vista 404
+      await cargarView(app, "login/index.html"); // Si no se encuentra la ruta, cargar una vista 404
+      loginController(); // Llamar al controlador de la vista 404
+      //window.location.hash = "#login"; // Redirigir al usuario a la página de login
       return;
-    }
-
-    if (rutas.private && Autenticado()) {
-
-      
-
     }
     
     //console.log(match);
