@@ -6,10 +6,12 @@ import { crearProductosController } from "../views/productos/crearProductoContro
 import { crearCategoriaController } from "../views/categorias/crearCategoriaControllers.js";
 import { editarCategoriaController } from "../views/categorias/editarCategoriaControllers.js";
 import { editarProductoController } from "../views/productos/editarProductoController.js";
+import { loginController } from "../views/login/loginController.js";
+import { registroController } from "../views/registro/registroController.js";
 
 const routes = {
     
-    home: {
+    "": {
         "template": "inicio/index.html",
         controlador: homeController
     },
@@ -37,8 +39,14 @@ const routes = {
         "template": "productos/editar.html",
         controlador: editarProductoController
     },
-
-
+    login: {
+      "template": "login/index.html",
+      controlador: loginController
+    },
+    registro: {
+      "template": "registro/index.html",
+      controlador: registroController
+    }
 };
 
 export const router = async (app) => {

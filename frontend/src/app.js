@@ -18,50 +18,23 @@ linkCategorias.classList.add('item-link')
 linkCategorias.textContent = 'Categorias';
 linkCategorias.setAttribute('href', '#categorias');
 
-// const linkCategorias = document.createElement('div');
-// linkCategorias.classList.add('item-link')
-// linkCategorias.textContent = 'Categorias';
-
-// const crearCategoria = document.createElement('a')
-// crearCategoria.setAttribute('href', '#crearCategorias');
-// crearCategoria.textContent = 'Crear una categoria';
-
-// const verCategoria = document.createElement('a')
-// verCategoria.setAttribute('href', '#categorias');
-// verCategoria.textContent = 'ver categorias';
-
-// const opCategorias = document.createElement('div')
-// opCategorias.classList.add ('opciones_categoria')
-
-// opCategorias.append( crearCategoria, verCategoria )
-
-// linkCategorias.appendChild( opCategorias )
 
 const linkProductos = document.createElement('a');
 linkProductos.classList.add('item-link')
 linkProductos.textContent = 'Productos';
 linkProductos.setAttribute('href', '#productos');
 
-// const linkProductos = document.createElement('div');
-// linkProductos.classList.add('item-link')
-// linkProductos.textContent = 'Productos';
+const linkLogin = document.createElement('a');
+linkLogin.classList.add('item-link');
+linkLogin.textContent = 'Login';
+linkLogin.setAttribute('href', '#login');
 
-// const crearProducto = document.createElement('a')
-// crearProducto.setAttribute('href', '#crearProductos');
-// crearProducto.textContent = 'Crear un producto';
+const linkRegistro = document.createElement('a');
+linkRegistro.classList.add('item-link');
+linkRegistro.textContent = 'Registrarse';
+linkRegistro.setAttribute('href', '#registro');
 
-// const verProducto = document.createElement('a')
-// verProducto.setAttribute('href', '#productos');
-// verProducto.textContent = 'ver productos';
-
-// const opProductos = document.createElement('div')
-// opProductos.classList.add ('opciones_producto')
-
-// opProductos.append( crearProducto, verProducto )
-
-// linkProductos.appendChild( opProductos )
-
-itemsHeader_content.append(linkCategorias, linkProductos);
+itemsHeader_content.append(linkCategorias, linkProductos, linkLogin, linkRegistro);
 
 //.......... #1.2 Creación de logo con enlace a la pagina principal
 const logo = document.createElement('a');

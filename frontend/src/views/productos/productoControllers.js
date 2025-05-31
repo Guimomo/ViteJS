@@ -1,3 +1,5 @@
+import { eliminarProducto } from "./eliminarProducto";
+
 export const productoController = async () => {
 
     await new Promise (requestAnimationFrame);
@@ -165,15 +167,18 @@ export const productoController = async () => {
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
         btnEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
+        //btnEliminar.dataset.id = productos.id;
         btnEliminar.addEventListener('click', async () => {
 
-            const confirmacion = confirm (`¿Deseas Eliminar el elemento ${Producto.nombre}?`);
-            if (confirmacion) {
-                fetch(`http://localhost:3000/api/productos/${Producto.id}`, {
-                    method: 'DELETE',
-                });
+            // const confirmacion = confirm (`¿Deseas Eliminar el elemento ${Producto.nombre}?`);
+            // if (confirmacion) {
+            //     fetch(`http://localhost:3000/api/productos/${Producto.id}`, {
+            //         method: 'DELETE',
+            //     });
 
-            }
+            // }
+
+            await eliminarProducto(Producto.id);
 
         });
 

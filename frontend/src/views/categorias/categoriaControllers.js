@@ -1,3 +1,5 @@
+import { eliminarCategoria } from "./eliminarCategoria";
+
 export const categoriaController = async () => {
 
     await new Promise (requestAnimationFrame);
@@ -227,13 +229,15 @@ export const categoriaController = async () => {
         btnEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
         btnEliminar.addEventListener('click', async () => {
             
-            const confirmacion = confirm (`¿Deseas Eliminar el elemento ${categoria.nombre}?`);
-            if (confirmacion) {
-                fetch(`http://localhost:3000/api/categorias/${categoria.id}`, {
-                    method: 'DELETE',
-                });
+            // const confirmacion = confirm (`¿Deseas Eliminar el elemento ${categoria.nombre}?`);
+            // if (confirmacion) {
+            //     fetch(`http://localhost:3000/api/categorias/${categoria.id}`, {
+            //         method: 'DELETE',
+            //     });
 
-            }
+            // }
+
+            await eliminarCategoria(categoria.id);
         });
 
         // Agregar los botones a la celda de acciones
