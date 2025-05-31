@@ -8,44 +8,54 @@ import { editarCategoriaController } from "../views/categorias/editarCategoriaCo
 import { editarProductoController } from "../views/productos/editarProductoController.js";
 import { loginController } from "../views/login/loginController.js";
 import { registroController } from "../views/registro/registroController.js";
+import { Autenticado } from "../helpers/auth.js";
 
 const routes = {
     
     "": {
         "template": "inicio/index.html",
-        controlador: homeController
+        controlador: homeController,
+        private: false // Indica que esta ruta no requiere autenticación
     },
     productos: {
         "template": "productos/index.html",
-        controlador: productoController
+        controlador: productoController,
+        private: true // Indica que esta ruta requiere autenticación
     },
     crearProductos: {
         "template": "productos/crear.html",
-        controlador: crearProductosController
+        controlador: crearProductosController,
+        private: true
     },
     categorias: {
         "template": "categorias/index.html",
-        controlador: categoriaController
+        controlador: categoriaController,
+        private: true
     },
     crearCategorias: {
         "template": "categorias/crear.html",
-        controlador: crearCategoriaController
+        controlador: crearCategoriaController,
+        private: true
     },
     "editarCategoria/:id": {
         "template": "categorias/editar.html",
-        controlador: editarCategoriaController
+        controlador: editarCategoriaController,
+        private: true
     },
     "editarProducto/:id": {
         "template": "productos/editar.html",
-        controlador: editarProductoController
+        controlador: editarProductoController,
+        private: true
     },
     login: {
       "template": "login/index.html",
-      controlador: loginController
+      controlador: loginController,
+      private: false
     },
     registro: {
       "template": "registro/index.html",
-      controlador: registroController
+      controlador: registroController,
+      private: false
     }
 };
 
@@ -53,7 +63,19 @@ export const router = async (app) => {
 
     const hash = location.hash.slice(1); //eliminar el # de la url
     const [rutas, params] = matchRoute(hash); //comprobar si la ruta existe //antes era {template, controlador} y funcionaba con {...routes[route], params}
-    console.log(params);
+    console.log(rutas.private);
+
+    if (!rutas) {
+      await cargarView(app, "inicio/index.html"); // Si no se encuentra la ruta, cargar una vista 404
+      homeController(); // Llamar al controlador de la vista 404
+      return;
+    }
+
+    if (rutas.private && Autenticado()) {
+
+      
+
+    }
     
     //console.log(match);
     //llamando la vista
