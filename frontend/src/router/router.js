@@ -110,7 +110,7 @@ const matchRoute = (hash) => {
       return [routes[route], params]; // Retornar la ruta y los params // antes era {...routes[route], params}
     }
 
-    console.log(params);
+    //console.log(params);
     
     
 

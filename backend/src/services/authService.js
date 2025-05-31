@@ -45,7 +45,7 @@ class AuthService {
     try {
       // Consultamos el usuario por el email
       const user = await Usuario.findByEmail(email);
-      console.log("user", user);
+      //console.log("user", user);
       
       // Validamos si el usuario esta registrado en la base de datos      
       if (!user)
