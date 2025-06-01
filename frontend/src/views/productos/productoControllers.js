@@ -1,13 +1,24 @@
 import { eliminarProducto } from "./eliminarProducto";
+import { getData } from "../../helpers/auth";
 
 export const productoController = async () => {
 
     await new Promise (requestAnimationFrame);
 
-    const responseProductos = await fetch("http://localhost:3000/api/productos");
+    const { accessToken } = getData();
+
+    const responseProductos = await fetch("http://localhost:3000/api/productos",{
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    });
     const { data: productos } = await responseProductos.json();
 
-    const responseCategorias = await fetch("http://localhost:3000/api/categorias");
+    const responseCategorias = await fetch("http://localhost:3000/api/categorias",{
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    });
     const { data: categorias } = await responseCategorias.json();
 
     /**

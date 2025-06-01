@@ -1,15 +1,39 @@
 import { eliminarCategoria } from "./eliminarCategoria";
+import { getData, refreshNewToken } from "../../helpers/auth"; // <-- Importa el helper
 
 export const categoriaController = async () => {
 
     await new Promise (requestAnimationFrame);
 
-    const response = await fetch("http://localhost:3000/api/categorias");
-    const {data} = await response.json();
+    //const { accessToken } = getData(); //Se crea una constante deserializada del token
+    let { accessToken } = getData();
+
+    let response = await fetch("http://localhost:3000/api/categorias", {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
             
     // const tbody = document.getElementById('categorias-list');
 
-    console.log(data);
+    //console.log(data);
+
+    if (response.status === 401) {
+
+        accessToken = await refreshNewToken(); // Si el token ha expirado, se intenta refrescarlo
+        if (!accessToken) {
+            console.error("No se pudo refrescar el token");
+            return;
+        }
+        response = await fetch("http://localhost:3000/api/categorias", {
+
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+    }
+
+    const {data} = await response.json();
 
     // const form = document.querySelector('form');
     // const nombre = document.getElementById('nombre');

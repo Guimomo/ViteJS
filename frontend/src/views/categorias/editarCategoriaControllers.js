@@ -1,6 +1,14 @@
+import { getData } from "../../helpers/auth";
+
 export const editarCategoriaController = async (categoria) => {
     
-    const req = await fetch (`http://localhost:3000/api/categorias/${categoria.id}`)
+    const { accessToken } = getData();
+
+    const req = await fetch (`http://localhost:3000/api/categorias/${categoria.id}`,{
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
     const {data} = await req.json();
     //const {datos} = await req.json();
 
@@ -36,7 +44,8 @@ export const editarCategoriaController = async (categoria) => {
             method: 'PATCH',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${accessToken}`
             }
         })
 

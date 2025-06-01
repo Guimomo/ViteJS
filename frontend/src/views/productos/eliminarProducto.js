@@ -1,8 +1,17 @@
 import Swal from "sweetalert2";
+import { getData } from "../../helpers/auth";
 export const eliminarProducto = async (a) => {
+
+    const {accessToken} = getData();
+
     try {
         const request = await fetch(`http://localhost:3000/api/productos/${a}`, {
+            
             method: 'DELETE',
+            headers: {
+                'Authorization' : `Bearer ${accessToken}`
+            }
+
         });
         const result = await request.json();
         if (result.success) {

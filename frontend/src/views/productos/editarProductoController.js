@@ -1,14 +1,28 @@
+import { getData } from "../../helpers/auth";
+
 export const editarProductoController = async (producto) => {
 
     // await new Promise(requestAnimationFrame);
 
-    const responseProductos = await fetch(`http://localhost:3000/api/productos/${producto.id}`);
+    const token = getData();
+    const accessToken = token.accessToken;
+
+    const responseProductos = await fetch(`http://localhost:3000/api/productos/${producto.id}`, {
+    
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    });
     const { data: productos } = await responseProductos.json();
 
     console.log(productos.nombre);
-    
 
-    const responseCategorias = await fetch("http://localhost:3000/api/categorias");
+    const responseCategorias = await fetch("http://localhost:3000/api/categorias", {
+    
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    });
     const { data: categorias } = await responseCategorias.json();
 
     const form = document.querySelector('form');
@@ -48,7 +62,8 @@ export const editarProductoController = async (producto) => {
             method: 'PATCH',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${accessToken}`
             }
         })
 

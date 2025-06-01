@@ -1,12 +1,22 @@
+import { getData } from "../../helpers/auth";
+
 export const crearProductosController = async () => {
     
     await new Promise(requestAnimationFrame);
+
+    const { accessToken } = getData();
 
     
     // const responseProductos = await fetch("http://localhost:3000/api/productos");
     // const {data: productos} = await responseProductos.json();
 
-    const responseCategorias = await fetch("http://localhost:3000/api/categorias");
+    const responseCategorias = await fetch("http://localhost:3000/api/categorias", {
+
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    });
+
     const { data: categorias } = await responseCategorias.json();
 
     const form = document.querySelector('form');
@@ -55,6 +65,7 @@ export const crearProductosController = async () => {
             body: JSON.stringify(data),
             headers: {
               'Content-type': 'application/json; charset=UTF-8',
+              'Authorization' : `Bearer ${accessToken}`
             },
         }).then((response) => response.json())
         .then((json) => console.log(json));

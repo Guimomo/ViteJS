@@ -1,10 +1,16 @@
+import { getData } from "../../helpers/auth";
+
 export const crearCategoriaController = async () => {
 
     await new Promise(requestAnimationFrame);
 
+    const {accessToken} = getData();
 
-
-    const response = await fetch("http://localhost:3000/api/categorias");
+    const response = await fetch("http://localhost:3000/api/categorias", {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
     const {data} = await response.json();
             
     // const tbody = document.getElementById('categorias-list');
@@ -34,6 +40,7 @@ export const crearCategoriaController = async () => {
                     body: JSON.stringify(data),
                     headers: {
                           'Content-type': 'application/json; charset=UTF-8',
+                          'Authorization' : `Bearer ${accessToken}`
                         },
                     })
                     .then((response) => response.json())
